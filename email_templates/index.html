@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Reset Password</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<style>
+    input {
+        height: 50px;
+        width: 70%;
+        border: 1px solid black;
+        border-radius: 5px;
+        text-align: center;
+    }
+    
+    .button {
+        border-radius: 2px;
+        background-color: #4CAF50;
+        color: white;
+        width: 30%;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border: 2px solid #4CAF50;
+    }
+</style>
+
+<body style="text-align: center;">
+    <h4 class="postdata" style="text-align:center;"></h4>
+    <div class="main-agileits">
+        <h2 class="sub-head">Reset Password</h2>
+        <div class="sub-main">
+            <form method="POST" action="/resetPassword/:token">
+                <span class="senddata"></span><br><br>
+                <input placeholder="New Password" name="password" class="password" type="password" required=""><br><br>
+                <input placeholder="Confirm Password" name="confirmpassword" class="confirmpassword" type="password" required=""><br><br>
+                <input type="submit" class="button" name="submit" value="RESET PASSWORD">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[name='submit']").on("click", function() {
+            $(".senddata").html("");
+            var url = window.location.href;
+            var password = $('.password').val();
+            var confirmpassword = $('.confirmpassword').val();
+
+            if (password == confirmpassword) {
+                $.post(url, {
+                    Password: password
+                }, function(result, status) {
+                    var msg = result.status;
+                    var msgdata = result.message;
+                    if (msg == "success") {
+                        $(".postdata").html(msgdata);
+                        $(".main-agileits").css("display", "none")
+                    } else {
+                        return false;
+                    }
+                });
+            } else {
+                $(".senddata").html("Passwords did not match");
+            }
+            return false;
+        });
+
+    });
+</script>

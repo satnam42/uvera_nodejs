@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="lists.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<div class="list-group" id="list-group">
+  <a href="#" class="list-group-item active">
+    WIFI List
+  </a>
+</div>
+
+<div class="container" id="login">
+  <div class="form-group">
+    <label for="exampleInputEmail1">SSID</label>
+    <input type="text" class="form-control" id="exampleInputSsid" aria-describedby="emailHelp"
+      placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword" placeholder="P  assword">
+  </div>
+
+  <button class="btn btn-primary" onclick="connect()">Submit</button>
+
+</div>
+<script type="text/javascript">
+
+
+
+
+  const connect = async () => {
+    var inputS = document.getElementById("exampleInputSsid").value;
+    var inputP = document.getElementById("exampleInputPassword").value;
+    console.log('valu1', inputS)
+    console.log('valu2', inputP)
+    if (inputS == undefined && inputP == undefined) {
+      alert('both input filed is required')
+    }
+    let model = {
+
+    }
+    try {
+      let res = await fetch("http://93.188.167.68localhost:7979/api/wifi/connect ", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ssid: inputS,
+          password: inputS
+        })
+      })
+
+      let data = await res.json()
+    } catch (error) {
+      alert(error)
+      console.log('error', error)
+    }
+
+
+  }
+  const wifiScan = async () => {
+
+    var login = document.getElementById("login");
+    login.style.display = 'none';
+    let res = await fetch('http://93.188.167.68:7979/api/wifi/list')
+    let data = await res.json()
+    let items = data.data
+    if (items && items.length > 0) {
+      for (var index = 1; index <= items.length; index++) {
+        var ul = document.getElementById("list-group");
+        var a = document.createElement("a");
+        a.onclick = function (e) {
+          var cells = ul.getElementsByTagName("a");
+          console.log('target', cells[e.srcElement.id].innerHTML)
+          var input = document.getElementById("exampleInputEmail1");
+          ul.style.display = 'none';
+          login.style.display = "block"
+          console.log('a', a.text)
+          alert(a);
+        }
+        a.setAttribute('id', index);
+        a.text = `${items[index].ssid}`
+        a.className = "list-group-item";
+        ul.appendChild(a);
+      }
+    }
+
+  }
+  window.onload = wifiScan;
+</script>
+
+</html>

@@ -1,0 +1,38 @@
+{
+    "name": "uvera",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "eslint * --fix",
+        "start": "node app.js"
+    },
+    "keywords": [
+        "api"
+    ],
+    "author": "Satnam Singh",
+    "dependencies": {
+        "@open-age/logger": "~1.1.0",
+        "app-root-path": "^2.1.0",
+        "bcrypt": "^5.0.1",
+        "browserify": "^17.0.0",
+        "change-case-object": "^2.0.0",
+        "config": "^2.0.1",
+        "cors": "^2.8.4",
+        "eslint-config-standard": "^11.0.0",
+        "express": "^4.17.1",
+        "firebase-admin": "^9.11.0",
+        "formidable": "^1.2.2",
+        "jsonwebtoken": "^8.3.0",
+        "lodash": "^4.17.20",
+        "moment": "^2.29.1",
+        "mongoose": "^5.2.8",
+        "multer": "^1.4.2",
+        "node-cron": "^3.0.0",
+        "node-wifi": "^2.0.14",
+        "nodemailer": "^6.4.11",
+        "param-case": "^2.1.1",
+        "promise": "^8.1.0"
+    }
+}
